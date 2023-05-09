@@ -1,0 +1,55 @@
+<div class="card mb-4 ">
+  <div class="d-flex">
+    <div class="icon icon-shape icon-lg bg-gradient-success shadow text-center border-radius-xl w-25 mt-n3 ms-4" style="height:50px; ">
+      <i class="material-icons opacity-10" aria-hidden="true">language</i>
+    </div>
+    <h6 class="mt-3 mb-2 ms-3 ">Last 5 News</h6>
+  </div>
+  <div class="card-body p-3">
+    <div class="row">
+      <div class="col-lg-6 col-md-7">
+        <div class="table-responsive">
+          <table class="table align-items-center ">
+            <tbody>
+            <%articles.each do |article|%>
+              <tr>
+                <td class="w-30">
+                  <div class="d-flex px-2 py-1 align-items-center">
+                    <div class="ms-4">
+                      <p class="text-xs font-weight-bold mb-0 ">Title:</p>
+                      <h6 class="text-sm font-weight-normal mb-0 "><%=article.title.gsub("&lt;/b&gt;", '').gsub("&lt;b&gt;","").gsub("&amp;#39;","")%></h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-center">
+                    <p class="text-xs font-weight-bold mb-0 ">Key Word</p>
+                    <h6 class="text-sm font-weight-normal mb-0 "><%= article.key_word.key_word%></h6>
+                  </div>
+                </td>
+                <td>
+                  <div class="text-center">
+                    <p class="text-xs font-weight-bold mb-0 ">Published:</p>
+                    <h6 class="text-sm font-weight-normal mb-0 "><%= article.published.slice(0..-13) %></h6>
+                  </div>
+                </td>
+                <td class="align-middle text-sm">
+                  <div class="col text-center">
+                    <p class="text-xs font-weight-bold mb-0 ">See news</p>
+                     <%=link_to 'See ', article.link %>
+                  </div>
+                </td>
+              </tr>
+           <%end%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-5">
+        <div id="map" class="mt-0 mt-lg-n4"></div>
+      </div>
+    </div>
+  </div>
+</div>
+ </div>
+  </div>

@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <%=link_to 'Home',root_path,class:"navbar-brand"%>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+  
+      <li class="nav-item">
+      </li>
+        <li class="nav-item">
+        <%=link_to 'Key words',key_words_path,class:"navbar-brand"%>
+      </li>
+     
+       <li class="nav-item">
+        <%=link_to 'Google alerts ',articles_path,class:"navbar-brand"%>
+      </li>
+      <li class="nav-item">
+        <%=link_to 'Factiva  alerts ',factiva_articles_path,class:"navbar-brand"%>
+      </li>
+    </ul>
+    <%=link_to 'Google Alerts Refresh', static_test_post_path,class:" btn bg-gradient-primary mt-4 w-25 ",style:"margin-right:100px;"%>
+    <%=link_to 'Factiva Alerts Refresh', static_test_path,class:" btn bg-gradient-success mt-4 w-25 ",style:"margin-right:100px;"%>
+ 
+  </div>
+</nav>

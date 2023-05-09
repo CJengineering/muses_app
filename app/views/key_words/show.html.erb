@@ -1,0 +1,43 @@
+<p style="color: green"><%= notice %></p>
+
+<h1><%=@key_word.key_word%></h1>
+<div class='row '>
+        <div class="col-12">
+          <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">All News</h6>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr >
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7  ">Title</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Related to</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Link</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      <th class="text-secondary opacity-7"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <%@key_word.articles.each do |article | %>
+                  <%= render article%>
+                  <%end%>   
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+<div>
+  <%= link_to "Edit this key word", edit_key_word_path(@key_word) %> |
+  <%= link_to "Back to key words", key_words_path %>
+
+  <%= button_to "Destroy this key word", @key_word, method: :delete %>
+</div>

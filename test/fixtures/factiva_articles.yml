@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  factiva_link: MyText
+  published: 2023-04-24 16:05:32
+  posted: false
+  url_g_1: MyText
+  url_g_2: MyText
+
+two:
+  title: MyString
+  description: MyText
+  factiva_link: MyText
+  published: 2023-04-24 16:05:32
+  posted: false
+  url_g_1: MyText
+  url_g_2: MyText

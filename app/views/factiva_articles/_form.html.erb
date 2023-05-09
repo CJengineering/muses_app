@@ -1,0 +1,55 @@
+<%= form_with(model: factiva_article) do |form| %>
+  <% if factiva_article.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(factiva_article.errors.count, "error") %> prohibited this factiva_article from being saved:</h2>
+
+      <ul>
+        <% factiva_article.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :factiva_link, style: "display: block" %>
+    <%= form.text_area :factiva_link %>
+  </div>
+
+  <div>
+    <%= form.label :published, style: "display: block" %>
+    <%= form.datetime_field :published %>
+  </div>
+
+  <div>
+    <%= form.label :posted, style: "display: block" %>
+    <%= form.check_box :posted %>
+  </div>
+  <div>
+    <%= form.label :source, style: "display: block" %>
+    <%= form.text_area :author %>
+  </div>
+  <div>
+    <%= form.label :url_g_1, style: "display: block" %>
+    <%= form.text_area :url_g_1 %>
+  </div>
+
+  <div>
+    <%= form.label :url_g_2, style: "display: block" %>
+    <%= form.text_area :url_g_2 %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @factiva_article %>
+
+<div>
+  <%= link_to "Edit this factiva article", edit_factiva_article_path(@factiva_article) %> |
+  <%= link_to "Back to factiva articles", factiva_articles_path %>
+
+  <%= button_to "Destroy this factiva article", @factiva_article, method: :delete %>
+</div>

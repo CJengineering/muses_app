@@ -1,0 +1,46 @@
+
+<main class="main-content border-radius-lg  ">
+        <div class="container-fluid py-4 ">
+          <div class="row ">
+            <div class="col-lg-7 position-relative z-index-2 ">
+              <div class="card card-plain mb-4">
+                <div class="card-body p-3">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="d-flex flex-column h-100">
+                        <h2 class="font-weight-bolder mb-0">General Statistics</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row ">
+                   <div class="col-lg-5 col-sm-5">
+                <% if @article_published %>
+                  <%= render "static/card", name: 'Total of news', article: @article_published, count: @articles_count%>
+                <%end%>
+                <% if @key_word_last_date && @key_word_last %>
+                  <%= render "static/card", name: 'Total of Key words', article:  @key_word_last_date, count:  @key_words_count%>              
+                </div>
+                <div class="col-lg-5 col-sm-5 mt-sm-0 mt-4">
+                 <%= render "static/card", name: 'Last Key word', article: "", count: @key_word_last%>
+                </div>
+                <%end%>
+              </div>
+              <div class="row mt-4">
+              <%if @articles %>
+                <div class="col-10">
+                  <%=render "static/list", articles: @articles %>
+                 </div>
+                 <%end%>
+              </div>
+              <div class="row mt-4">
+               <div class="col-lg-5 mb-lg-0 mb-4">
+                
+               </div>
+              </div>
+            </div>
+         </div>    
+        </div>   
+    </main>
+

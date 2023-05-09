@@ -1,0 +1,20 @@
+
+    <tr id="<%= dom_id key_word  %>" >
+        <td  >
+           <div class="d-flex px-2 py-1">
+
+                          <div class="d-flex flex-column justify-content-center">
+                             <%= link_to key_word.key_word,  key_word%>
+          
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><%=key_word.created_at %></p>
+                
+                      </td>
+                      <td class="align-middle text-center text-sm">
+                        <span class="badge badge-sm bg-gradient-success" ><%=link_to 'See ', key_word %></span>
+                      </td>
+                       
+    </tr>
