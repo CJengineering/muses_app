@@ -17,9 +17,18 @@
       <li class="nav-item">
         <%=link_to 'Factiva  alerts ',factiva_articles_path,class:"navbar-brand"%>
       </li>
+      <% if current_user %> 
+         <li class="nav-item">
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete,class:"navbar-brand", style:'color : red;' %> 
+         </li>
+      <% else %>
+        <li class="nav-item">
+            <%= link_to "Sign in", new_user_session_path , class:"navbar-brand", style: 'color : green;' %> 
+         </li>
+<% end %>
     </ul>
-    <%=link_to 'Google Alerts Refresh', static_test_post_path,class:" btn bg-gradient-primary mt-4 w-25 ",style:"margin-right:100px;"%>
-    <%=link_to 'Factiva Alerts Refresh', static_test_path,class:" btn bg-gradient-success mt-4 w-25 ",style:"margin-right:100px;"%>
+    <%=link_to 'Google Alerts Refresh', static_test_post_path,class:" btn bg-gradient-primary mt-4  ",style:"margin-right:10px;"%>
+    <%=link_to 'Factiva Alerts Refresh', static_test_path,class:" btn bg-gradient-success mt-4  ",style:"margin-right:10px;"%>
  
   </div>
 </nav>

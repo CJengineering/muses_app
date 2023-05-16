@@ -1,4 +1,5 @@
 class StaticController < ApplicationController
+  skip_before_action :authenticate_user!, except: :home
   require 'net/http'
   require 'open-uri'
   require 'simple-rss'
