@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   # GET /articles or /articles.json
   def index
     
-    @articles = Article.order( 'published DESC' )
+    @articles = Article.order( created_at: :desc )
     if params[:sort_by] == "title"
       @articles = @articles.order(title: :asc)
     elsif params[:sort_by] == "created_at"
@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1 or /articles/1.json
   def show
   end
-
+ 
   # GET /articles/new
   def new
     @article = Article.new

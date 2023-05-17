@@ -23,6 +23,18 @@ local:
 google:
   service: GCS
   project: <%= ENV["GOOGLE_PROJECT_ID"] %>
+  credentials:
+    type: "service_account"
+    project_id: "cj-tech-381914"
+    private_key_id: "125580215faf4a92a2ead8def3a826374c957eba"
+    private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC4D/HiVKXjJtLs\nQqPyIpTAlhJeJ82ijoqm/8Cy+X0ByT6cp9ftNa5nIxVL3gp5QxBDzY6XsZn0Y88X\n2JaASnXi/Ra2tAqGiiBBXFkUvsvivOHEihpLFB/zTITZkwnTRdfuo36VKHKb2GdL\nfWE05lR9IXU0bPxX9i+KcF8pmKEFsyHNXZ/M6GVq4bPg6Lnbw0CEUcCpeQ+ck2YL\ngl1IrkhqS7ioK1wFHvZustk7GykRAM4ZKvZEkTq8pD+MtlE8Mdo1Mt/PvUG9PPOa\nPHS8vNk5+BH5kd5bR6ZPIvPt9agriuG4g5ussqrKMn/7RXdJsE8lwRLsfenKqPGB\nOrf5iZZDAgMBAAECggEAEdNC0XCcLh7vlKoxgWdq8NRidqmJJyHXI1bSXSLUlzcw\n7+/rSpGFJdTby6ChyAjqytOIkyqZJnYCCM+qEkY5G3X3h1Mb+oKRnsgoPQjrQDaa\n8LM6hPnadu/6pQLck+WIL21i+rlTkWyIOGMt5kxwyJDUbnLS5LE2p8QRMJCToN8E\nVpmVurq5kSCxKU3H+EI2UEeVpWruQ7TpBF7pToVPU03zBAEbZS0vP2efh9pJFq16\nbomibYnljConVBu3pEZbKuioy0WuZI1AVYs3z/Uvu65JZ2uy+IU51EyPW1GUR3am\nbo3sJarslfw4qCccYuwp5qumP3PFXSSDC2exzaDb2QKBgQDeIAqXUYnvgL/1Zqxl\nH3BAGuBpN3rLbAN/qJQojl7D9XZlMn8j3485foyDU8cIGqC+kSmSTnOi/Qd4Y0P5\n5vHkWVTab79eFlIim/mMiG6/tDGmpQUaOJA1InO9SlKqueAE/TPtwLSTfAj4kEUf\nHBxhFRoQmYpvmr5+807z5Sqk6QKBgQDUIeVUH9gEwPWcz7HPL0Im7qWO7szgHOKO\nwrc6lD/w2i8sRO+wxVGa26osYTA0vdRZWAR4hMEUrxSSy+GAUgsVW0k5M5qf7T/E\nQybMnxlVbqYZyNhdfMiY51G8whsOjsyGrN7VeTWhAZZOk9YnAhuqIk91V5UG1RRa\n08dEil1WSwKBgQC6aJtax+QBKcRuln7A0nRqZ+PCiPu1MW1yObA0pN4kh5+XZ5xJ\nJ7lTn78eCzWxuF8D7mC71ri2pLAbOPr4AvcnEkzij/tCY2sEfm8bn/eJTBiK6Fvy\n2Fs1LDeDOJdNjXXR2gg1U453YxVIPBK1++pZEtNv8Nq7tFp/wYKVrdFu2QKBgA26\nN83u1ZrRJdPE+PuwUjaUwO/z8hwaomqcnSDUUSLz65OQznYA/tvnlSaUD3uKQUCa\n2oc2CAyfm9Q4D1qvdHooUx+5gCsTPkokElGxhgEqTONkROQf3BdQ+NAfO4MAqKma\nbD0iP98wbBqfpH8XutSSrdOpHEK57TxHciC0V3/rAoGAPXA3pIJgORU1cAD7zbq2\nJm2bid4fEHHDRJ+vL43hSrjIKfgU75cyjwRdoY8APeaBVi3RDao5bFLfgcgEnxOd\nlH/CpHKJz5IZsZ5VngM58etcC2fcQzwtgllGgqt8urSKy0mKCllm1qFYd7c+t+Gj\nNH9lE2cnZ9P9G2veKiUqoiY=\n-----END PRIVATE KEY-----\n"
+    client_email: "muses-app@cj-tech-381914.iam.gserviceaccount.com"
+    client_id: "116062544461204006162"
+    auth_uri: "https://accounts.google.com/o/oauth2/auth"
+    token_uri: "https://oauth2.googleapis.com/token"
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs"
+    client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/muses-app%40cj-tech-381914.iam.gserviceaccount.com"
+    universe_domain: "googleapis.com"
   bucket: <%= ENV["STORAGE_BUCKET_NAME"] %>
 # Use bin/rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:

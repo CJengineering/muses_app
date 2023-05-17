@@ -3,7 +3,13 @@
 <%= render "form", key_word: @key_word %>
 
 <br>
+<div>
+ <%= form_with url: import_key_words_path, method: :post do |form| %>
+ <%= form.file_field :file, accept: ".csv" %>
+ <%= form.submit "Import"%>
+ <%end%>
 
+</div>
 <div>
   <%= link_to "Back to key words", key_words_path %>
 </div>

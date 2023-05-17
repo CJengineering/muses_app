@@ -1,5 +1,6 @@
 class KeyWordsController < ApplicationController
   before_action :set_key_word, only: %i[ show edit update destroy ]
+  require 'csv'
 
   # GET /key_words or /key_words.json
   def index
@@ -35,7 +36,15 @@ class KeyWordsController < ApplicationController
       end
     end
   end
+ #import csv
 
+ def import
+  file =params[:file]
+  return redirect_to key_words_path, notice: "Only CSV please" unless  file.content_type == "text/csv"
+  CsvImportKeyWordsService.new.call(file)
+
+  redirect_to key_words_path, notice: "Key words imported "
+end
   # PATCH/PUT /key_words/1 or /key_words/1.json
   def update
     respond_to do |format|
@@ -67,6 +76,6 @@ class KeyWordsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def key_word_params
-      params.require(:key_word).permit(:key_word, :rss_url, :factiva)
+      params.require(:key_word).permit(:key_word, :rss_url, :factiva, :file)
     end
 end

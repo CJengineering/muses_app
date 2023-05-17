@@ -1,0 +1,33 @@
+<div id="<%= dom_id medium %>">
+  <p>
+    <strong>Title:</strong>
+    <%= medium.title %>
+  </p>
+
+  <p>
+    <strong>Date:</strong>
+    <%= medium.date %>
+  </p>
+
+  <p>
+    <strong>Type:</strong>
+    <%= medium.type_content %>
+  </p>
+
+  <p>
+    <strong>People:</strong>
+    <%= medium.people %>
+  </p>
+
+  <p>
+    <strong>Programme:</strong>
+    <%= medium.programme %>
+  </p>
+ <p>
+ <% if medium.thumbnail.attached?%>
+    <strong>Thmbnaail:</strong>
+    <%= image_tag medium.thumbnail, width: "200px" %>
+    <%end%>
+  </p>
+
+</div>

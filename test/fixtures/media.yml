@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  date: 2023-05-17 15:15:54
+  type: 
+  people: MyString
+  programme: MyString
+
+two:
+  title: MyString
+  date: 2023-05-17 15:15:54
+  type: 
+  people: MyString
+  programme: MyString

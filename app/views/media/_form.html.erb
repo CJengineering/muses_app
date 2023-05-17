@@ -1,0 +1,57 @@
+<%= form_with(model: medium) do |form| %>
+  <% if medium.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(medium.errors.count, "error") %> prohibited this medium from being saved:</h2>
+
+      <ul>
+        <% medium.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :date, style: "display: block" %>
+    <%= form.datetime_field :date %>
+  </div>
+
+  <div>
+    <%= form.label :type, style: "display: block" %>
+    <%= form.text_field :type_content %>
+  </div>
+
+  <div>
+    <%= form.label :people, style: "display: block" %>
+    <%= form.text_field :people %>
+  </div>
+
+  <div>
+    <%= form.label :programme, style: "display: block" %>
+    <%= form.text_field :programme %>
+  </div>
+  <div>
+      <%= form.label :thumbnail, style: "display: block" %>
+      <%= form.file_field :thumbnail %>
+  </div>
+    <div>
+     <%= form.label :image, style: "display: block" %>
+     <%= form.file_field :image %>
+  </div>
+    <div>
+     <%= form.label :video , style: "display: block" %>
+     <%= form.file_field :video  %>
+  </div>
+    <div>
+    <%= form.label :hires_image, style: "display: block" %>
+     <%= form.file_field  :hires_image%>
+  </div>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
