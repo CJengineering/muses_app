@@ -1,0 +1,19 @@
+<h1>Word Counts  <%= @article.title  %> </h1>
+
+<table>
+  <tr>
+    <th>Word</th>
+    <th>Count</th>
+  </tr>
+  <% if  @words_count %>
+  <% @words_count.each do |word, count| %>
+
+    <tr>
+  <% if  count >0 %>
+      <td><%= word %></td>
+      <td><%= count %></td>
+    </tr>
+    <% end %>
+  <% end %>
+    <% end %>
+</table>

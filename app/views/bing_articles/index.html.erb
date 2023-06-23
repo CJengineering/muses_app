@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Bing articles</h1>
+
+<div id="bing_articles">
+  <% @bing_articles.each do |bing_article| %>
+    <%= render bing_article %>
+    <p>
+      <%= link_to "Show this bing article", bing_article %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New bing article", new_bing_article_path %>

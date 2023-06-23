@@ -65,6 +65,6 @@ class MediaController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def medium_params
-      params.require(:medium).permit(:title, :date, :type_content, :people, :programme, :thumbnail, :image, :video , :hires_image)
+      params.require(:medium).permit(:title, :date, :type_content, :people, :programme, :thumbnail, :image, :video , :hires_image, images: [])
     end
 end

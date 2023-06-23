@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :bing_articles
+  resources :gosearts
   resources :media
   resources :factiva_articles
   resources :articles
@@ -12,6 +14,10 @@ Rails.application.routes.draw do
 
   get 'static/test_post'
   get 'static/test'
+  get 'static/test_webflow'
+  post 'static/test_webhook'
+  get 'static/scraper'
+  get 'static/gosearts'
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

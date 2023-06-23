@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @goseart %>
+
+<div>
+  <%= link_to "Edit this goseart", edit_goseart_path(@goseart) %> |
+  <%= link_to "Back to gosearts", gosearts_path %>
+
+  <%= button_to "Destroy this goseart", @goseart, method: :delete %>
+</div>

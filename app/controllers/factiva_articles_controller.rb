@@ -1,9 +1,14 @@
 class FactivaArticlesController < ApplicationController
   before_action :set_factiva_article, only: %i[ show edit update destroy ]
-
+  skip_before_action :verify_authenticity_token
+  before_action :authenticate_devise_api_token!, :resource_class
   # GET /factiva_articles or /factiva_articles.json
+  def  resource_class  
+  end
+
   def index
     @factiva_articles = FactivaArticle.all
+    render json: @factiva_articles 
   end
 
   # GET /factiva_articles/1 or /factiva_articles/1.json

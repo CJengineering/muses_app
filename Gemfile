@@ -32,11 +32,14 @@ gem "jbuilder"
 gem "dotenv-rails", "~> 2.7", ">= 2.7.6"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
-
+#COrs gem
+gem 'rack-cors'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 #Nokogiri
+gem 'openai'
 gem 'devise'
+gem 'devise-api', github: 'nejdetkadir/devise-api', branch: 'main'
 gem 'nokogiri', '~> 1.14', '>= 1.14.3'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -46,7 +49,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
+gem 'pagy', '~> 6.0' # omit patc
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -57,7 +60,10 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
-
+group :development, :test do
+  gem 'rspec-rails', '~> 6.0.0'
+  gem 'factory_bot_rails'
+end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"

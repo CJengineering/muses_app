@@ -1,0 +1,3 @@
+<%=turbo_stream.remove "article_#{@article.id}"  do %>
+ <%= render partial: "article_small", locals: {article: @article} %>
+<%end%>

@@ -1,0 +1,32 @@
+                     <td class= " " >
+                        <div class="d-flex px-2 py-1 re ">
+
+                          <div class="d-flex flex-column justify-content-center w-50   my-text ">
+                            <%= link_to  article.title.gsub("&lt;/b&gt;", '').gsub("&lt;b&gt;","").gsub("&amp;#39;",""), article %></p>
+                     
+                          </div>
+                          <div>  <%= link_to "see article", article.link, target: "_blank", class:"btn "  %></div>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0"><%= article.key_word.key_word%></p>
+                        <p>Main keyword:<%= article.score%></p>
+                        <p>Related Keywords:<%= article.score_second%></p>
+                
+                      </td>
+                      <td class="align-middle text-center text-sm" data-controller="copy" >
+                          <span ><%=link_to '', article.link, data: { copy_target:"ref" }  %></span>
+                          <span  style="font-size: 0; line-height: 0; height: 1px; width: 1px;" id="text-to-copy<%=article.id%>" ><%= article.link %></span>
+                          <button class="badge badge-sm btn bg-gradient-primary"  data-action="click->copy#copy">Copy</button>
+                      </td>
+                      <td class="align-middle text-center" >
+                        <span class="text-secondary text-xs font-weight-bold"><%= article.published.slice(0..-13)%></span>
+                      </td>
+                  
+                      <td class="align-middle" hidden>
+                       <%= render "switch_form", article: article %>
+                      </td>
+
+                      <td class="category-label-parent">
+                       <%= render "articles/category_form", article: article%>
+                      </td>

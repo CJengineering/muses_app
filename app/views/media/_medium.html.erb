@@ -29,5 +29,14 @@
     <%= image_tag medium.thumbnail, width: "200px" %>
     <%end%>
   </p>
+<div>
+  <% if medium.images.attached?%>
+       <%medium.images.each do |image|%>
+       <%= image_tag image , width: "200px" %>
+          <%= link_to "See the image", url_for(image) %>
+          
+    <%end%>
+  <%end%>
+</div>
 
 </div>

@@ -4,7 +4,11 @@ class KeyWordsController < ApplicationController
 
   # GET /key_words or /key_words.json
   def index
-    @key_words = KeyWord.all
+    @key_words = if params[:search]
+      KeyWord.where("key_word ILIKE ?", "%#{params[:search]}%")
+    else
+     KeyWord.all
+    end
   end
 
   # GET /key_words/1 or /key_words/1.json

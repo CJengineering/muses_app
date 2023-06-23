@@ -1,6 +1,21 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @article %>
+  <table>
+  <tr>
+    <th>Word</th>
+    <th>Count</th>
+  </tr>
+  <%=@array%>
+   <% if @related_keywords %>
+        <% @related_keywords.each do |keyword, count|%>
+            <% if  count > 0%>
+      <tr>
+                <td><%= keyword %></td>
+                <td><%= count %></td>
+        </tr>
+              <% end %>
+        <%end%>
+      <%end%>
 
 <div>
   <%= link_to "Edit this article", edit_article_path(@article) %> |

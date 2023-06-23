@@ -35,21 +35,9 @@
     <%= form.label :programme, style: "display: block" %>
     <%= form.text_field :programme %>
   </div>
-  <div>
-      <%= form.label :thumbnail, style: "display: block" %>
-      <%= form.file_field :thumbnail %>
-  </div>
-    <div>
-     <%= form.label :image, style: "display: block" %>
-     <%= form.file_field :image %>
-  </div>
-    <div>
-     <%= form.label :video , style: "display: block" %>
-     <%= form.file_field :video  %>
-  </div>
-    <div>
-    <%= form.label :hires_image, style: "display: block" %>
-     <%= form.file_field  :hires_image%>
+ <div>
+    <%= form.label :images, style: "display: block" %>
+    <%= form.file_field :images, multiple: true %>
   </div>
   <div>
     <%= form.submit %>

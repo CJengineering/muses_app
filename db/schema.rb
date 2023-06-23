@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_17_151959) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_22_161105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,7 +50,39 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_151959) do
     t.boolean "posted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category_label"
+    t.integer "score"
+    t.integer "score_second"
     t.index ["key_word_id"], name: "index_articles_on_key_word_id"
+  end
+
+  create_table "bing_articles", force: :cascade do |t|
+    t.bigint "key_word_id", null: false
+    t.string "title"
+    t.string "category_label"
+    t.integer "score"
+    t.integer "score_second"
+    t.string "published"
+    t.text "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key_word_id"], name: "index_bing_articles_on_key_word_id"
+  end
+
+  create_table "devise_api_tokens", force: :cascade do |t|
+    t.string "resource_owner_type", null: false
+    t.bigint "resource_owner_id", null: false
+    t.string "access_token", null: false
+    t.string "refresh_token"
+    t.integer "expires_in", null: false
+    t.datetime "revoked_at"
+    t.string "previous_refresh_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["access_token"], name: "index_devise_api_tokens_on_access_token"
+    t.index ["previous_refresh_token"], name: "index_devise_api_tokens_on_previous_refresh_token"
+    t.index ["refresh_token"], name: "index_devise_api_tokens_on_refresh_token"
+    t.index ["resource_owner_type", "resource_owner_id"], name: "index_devise_api_tokens_on_resource_owner"
   end
 
   create_table "factiva_articles", force: :cascade do |t|
@@ -66,6 +98,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_151959) do
     t.datetime "updated_at", null: false
     t.string "author"
     t.index ["key_word_id"], name: "index_factiva_articles_on_key_word_id"
+  end
+
+  create_table "gosearts", force: :cascade do |t|
+    t.bigint "key_word_id", null: false
+    t.text "title"
+    t.text "url_link"
+    t.integer "score"
+    t.integer "score_second"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key_word_id"], name: "index_gosearts_on_key_word_id"
   end
 
   create_table "key_words", force: :cascade do |t|
@@ -101,5 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_151959) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "articles", "key_words"
+  add_foreign_key "bing_articles", "key_words"
   add_foreign_key "factiva_articles", "key_words"
+  add_foreign_key "gosearts", "key_words"
 end

@@ -1,0 +1,72 @@
+<p style="color: green"><%= notice %></p>
+     <div class="global_wrapper">
+    <div class="section_navbar">
+      <div class="sticky_sidebar">
+        <div class="nav_vertical-wrapper">
+          <h1 class="nav_vertical-title">Muses</h1>
+          <div class="nav_link-container">
+            <div class="padding-small"></div>
+            <a href="#" class="nav_link">Home<br></a>
+            <div class="padding-small"></div>
+            <a href="#" class="nav_link active">Keywords<br></a>
+            <div class="padding-small"></div>
+            <a href="#" class="nav_link">Google Alerts<br></a>
+            <div class="padding-small"></div>
+            <a href="#" class="nav_link">Google Search<br></a>
+            <div class="padding-small"></div>
+            <a href="#" class="nav_link">Factiva Alerts<br></a>
+            <div class="padding-small"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-main-wrapper">
+      <div class="padding-global">
+        <div class="main-container">
+         
+            <div class="padding-custom1">
+              <div class="padding-small"></div>
+              <div class="nav_tab-wrapper">
+                <a href="#" class="nav_tab-link nav_link-active w-inline-block"><img src="images/Vector.svg" loading="lazy" alt="">
+                  <div>Pending</div>
+                </a>
+                <a href="#" class="nav_tab-link w-inline-block"><img src="images/Vector_1.svg" loading="lazy" alt="">
+                  <div>Published</div>
+                </a>
+                <a href="#" class="nav_tab-link w-inline-block"><img src="images/Vector_2.svg" loading="lazy" alt="">
+                  <div>Archived</div>
+                </a>
+              </div>
+              <div class="padding-small"></div>
+              <div class="table-container">
+                <div class="table-title">
+                  <div>TITLE</div>
+                  <div></div>
+                  <div>RELATED TO</div>
+                  <div>MAIN SCORE</div>
+                  <div>RELATED SCORE</div>
+                  <div>DATE</div>
+                  <div>ACTIONS<br>‍</div>
+                </div>
+                <div class="table-row">
+                <% @gosearts.each do |goseart| %>
+                  <div><%= goseart.title%></div>
+                  <div>
+                  <%= link_to "View", goseart.url_link , class:"table_view-link"%>
+                   
+                  </div>
+                  <div><%= goseart.key_word.key_word%></div>
+                  <div class="table-score"><%= goseart.score%><br>‍</div>
+                  <div class="table-score"><%= goseart.score_second%></div>
+                  <div>jan 11, 2023</div>
+                  <div id="w-node-a71d995e-22ac-edf7-e011-eab6510f4038-a00af20a" class="table_actions"><img src="images/Vector_2.svg" loading="lazy" width="24" height="24" alt="" class="image-2"><img src="images/Vector_1.svg" loading="lazy" width="24" height="24" alt="" class="image-3"></div>
+                  <%end%>
+                </div>
+              </div>
+                 <%== pagy_nav(@pagy) %>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

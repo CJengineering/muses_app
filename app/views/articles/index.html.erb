@@ -1,16 +1,76 @@
 <p style="color: green"><%= notice %></p>
     <div class="container-fluid py-4">
-       <%= form_tag articles_path, method: :get, class: "sort-form" do %>
-         <label for="sort_by">Sort by:</label>
-          <%= select_tag :sort_by, options_for_select([['Title', 'title'], ['Created at', 'created_at']]), {prompt: "Select an option"} %>
-          <%= submit_tag "Sort", class: "btn btn-primary" %>
-       <% end %>
+
+      <div class=" " >
+            <ul class="nav nav-tabs w-100">
+                 <li class="nav-item ">
+                      <%= form_tag articles_path, method: :get do %> 
+                      <div class="d-flex flex-column">     
+                        <%= hidden_field_tag  "archived", "archived"%>
+                        <%= submit_tag 'archived',class:"nav-link" %>
+                        <% if params[:archived]%>
+                          <%= label_tag :date, 'Sort by Date:' %>
+                          <%= date_field_tag :date, params[:date], value: nil %>
+                          <div class="d-flex">
+                            <%= check_box_tag :sort_by, 'desc', params[:sort_by] == 'desc' %>
+                            <%= label_tag :sort_by_desc, 'Descending' %>
+                            <%= check_box_tag :sort_by, 'asc', params[:sort_by] == 'asc' %>
+                            <%= label_tag :sort_by_asc, 'Ascending' %>
+                            </div>
+                          <%= submit_tag 'Sort'  %>
+                          
+                        <%end%>
+                        </div>
+                    <% end %>
+                   </li>
+                   <li class="nav-item">
+                      <%= form_tag articles_path, method: :get do %> 
+                      <div class="d-flex flex-column">
+                        <%= hidden_field_tag  "published", "published"%>
+                        <%= submit_tag 'published', class: 'nav-link' %>
+                      <% if params[:published]%>
+                          <%= label_tag :date, 'Sort by Date:' %>
+                          <%= date_field_tag :date, params[:date], value: nil %>
+                            <div class="d-flex">
+                              <%= check_box_tag :sort_by, 'desc', params[:sort_by] == 'desc' %>
+                              <%= label_tag :sort_by_desc, 'Descending' %>
+                              <%= check_box_tag :sort_by, 'asc', params[:sort_by] == 'asc' %>
+                              <%= label_tag :sort_by_asc, 'Ascending' %>
+                            </div>
+                          <%= submit_tag 'Sort'  %>
+                        <%end%>
+                        </div>   
+                    <% end %>
+                        </li>
+                    <li class="nav-item">
+                      <%= form_tag articles_path, method: :get do %> 
+                      <div class="d-flex flex-column">   
+                        <%= hidden_field_tag  "pending", "pending"%>
+                        <%= submit_tag 'pending', class:"nav-link" %>
+                      <% if @name == "Pending" %>
+                          <%= label_tag :date, 'Sort by Date:' %>
+                          <%= date_field_tag :date, params[:date], value: nil %>
+                            <div class="d-flex">
+                                <%= check_box_tag :sort_by, 'desc', params[:sort_by] == 'desc' %>
+                                <%= label_tag :sort_by_desc, 'Descending' %>
+                                <%= check_box_tag :sort_by, 'asc', params[:sort_by] == 'asc' %>
+                                <%= label_tag :sort_by_asc, 'Ascending' %>
+                            </div>
+                          <%= submit_tag 'Sort'  %>
+                        <%end%>
+                        </div>
+                    <% end %>
+                    </li>
+                </ul>
+      </div>
+
       <div class='row '>
         <div class="col-12">
           <div class="card my-4">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">All Google Alerts</h6>
+                <h6 class="text-white text-capitalize ps-3"><%=@name%> Google Articles</h6>
+              
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -22,16 +82,21 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Related to</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Link</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NEWSWORTHY</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody>
-                  <%@articles.each do |article| %>
-                     <%= render article%>
-                  <%end%>   
+                  <div id="articles-test">
+                    <% @articles.each do |article| %>
+                      <%= render article%>
+                    <%end%>   
+               
+                    <%== pagy_nav(@pagy) %>
+                  </div>
                   </tbody>
                 </table>
+         
               </div>
             </div>
           </div>

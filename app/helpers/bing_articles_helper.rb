@@ -1,0 +1,2 @@
+module BingArticlesHelper
+end

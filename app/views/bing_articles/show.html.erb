@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @bing_article %>
+
+<div>
+  <%= link_to "Edit this bing article", edit_bing_article_path(@bing_article) %> |
+  <%= link_to "Back to bing articles", bing_articles_path %>
+
+  <%= button_to "Destroy this bing article", @bing_article, method: :delete %>
+</div>

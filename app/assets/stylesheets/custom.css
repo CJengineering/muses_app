@@ -98,3 +98,21 @@
   .green-text:hover{
     color: pink;
   }
+
+  .category-label-parent {
+    position: relative;
+    width: 200px;
+  }
+
+  .category-label {
+    display: none;
+ 
+  
+  }
+
+  .category-label-parent:hover .category-label{
+    display:  flex;
+
+    justify-content: space-around;
+    transition: 0.5 ;
+  }

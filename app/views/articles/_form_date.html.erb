@@ -1,0 +1,10 @@
+ <%= form_tag articles_path, method: :get, class: "sort-form" do %>
+     <label for="sort_by">Sort by:</label>
+      <%= select_tag :sort_by, options_for_select([['Ascending', 'asc'],['Descending', 'desc'] ]), {prompt: "Select an option"} %>
+      <%= submit_tag "Sort", class: "btn btn-primary" %>
+   <% end %>
+   <%= form_tag articles_path, method: :get do %>
+      <%= label_tag :date, 'Sort by Date:' %>
+      <%= date_field_tag :date, params[:date] %>
+      <%= submit_tag 'Sort', class: 'btn btn-warning' %>
+  <% end %>

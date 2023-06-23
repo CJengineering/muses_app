@@ -1,0 +1,42 @@
+<%= form_with(model: goseart) do |form| %>
+  <% if goseart.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(goseart.errors.count, "error") %> prohibited this goseart from being saved:</h2>
+
+      <ul>
+        <% goseart.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :key_word_id, style: "display: block" %>
+    <%= form.text_field :key_word_id %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_area :title %>
+  </div>
+
+  <div>
+    <%= form.label :url_link, style: "display: block" %>
+    <%= form.text_area :url_link %>
+  </div>
+
+  <div>
+    <%= form.label :score, style: "display: block" %>
+    <%= form.number_field :score %>
+  </div>
+
+  <div>
+    <%= form.label :score_second, style: "display: block" %>
+    <%= form.number_field :score_second %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
