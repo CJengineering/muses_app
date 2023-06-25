@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post 'static/test_webhook'
   get 'static/scraper'
   get 'static/gosearts'
+  get 'static/bing_news'
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

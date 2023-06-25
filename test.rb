@@ -117,27 +117,29 @@
 #     @pagy, @articles = pagy(Article.all.order(published: order))
 #     @name = "Pending"
 
-require 'net/http'
-require 'uri'
-require 'json'
+# require 'net/http'
+# require 'uri'
+# require 'json'
 
-def search_bing(query)
-  uri = URI('https://api.bing.microsoft.com/v7.0/news/search')
-  uri.query = URI.encode_www_form({ q: query })
+# def search_bing(query)
+#   uri = URI('https://api.bing.microsoft.com/v7.0/news/search')
+#   uri.query = URI.encode_www_form({ q: query })
 
-  request = Net::HTTP::Get.new(uri)
-  request['Ocp-Apim-Subscription-Key'] = '26e2390ca1a34767a703fdec8700518f'
+#   request = Net::HTTP::Get.new(uri)
+#   request['Ocp-Apim-Subscription-Key'] = '26e2390ca1a34767a703fdec8700518f'
 
-  response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
-    http.request(request)
-  end
+#   response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
+#     http.request(request)
+#   end
 
-  case response
-  when Net::HTTPSuccess then
-    json_response = JSON.parse(response.body)
-    return json_response["value"][0]["name"], json_response["value"][0]["url"] if json_response.key?("value")
-  else
-    raise "Request failed with code #{response.code}"
-  end
-end
-puts search_bing("Community Jameel")
+#   case response
+#   when Net::HTTPSuccess then
+#     json_response = JSON.parse(response.body)
+#     if json_response.key?("value") && !json_response["value"].empty?
+#       return json_response["value"].map { |item| [item["name"], item["url"], item["datePublished"]] }
+#     end
+#   else
+#     raise "Request failed with code #{response.code}"
+#   end
+# end
+ 

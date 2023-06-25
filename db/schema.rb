@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_22_161105) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_23_103944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -108,6 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_22_161105) do
     t.integer "score_second"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category_label"
     t.index ["key_word_id"], name: "index_gosearts_on_key_word_id"
   end
 

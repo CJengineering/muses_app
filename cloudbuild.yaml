@@ -1,4 +1,3 @@
-
 # [START cloudrun_rails_cloudbuild]
 steps:
   - id: "build image"

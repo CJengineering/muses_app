@@ -91,42 +91,102 @@ class StaticController < ApplicationController
     # Save the article with the scraped content and URLs
  
   end
-  def test_webhook
-    puts "it works"
-    puts params[:static]
-    @params =params[:static]
-  end
-  
-  def gosearts
-    key_words= KeyWord.where(factiva: false)
+
+  def bing_news
+    key_words = KeyWord.where(factiva: false)
     words_to_search = KeyWord.pluck(:key_word).freeze
-    key_words.each do |keyword|
-      encoded_query = URI.encode_www_form_component(keyword.key_word)
-      url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBYXKqIved2ZtTNMNohTjNS26FolJxQvcI&cx=47940e58570224fb6&q=#{encoded_query}&tbm=nws&sort=date"
-      response = Net::HTTP.get(URI(url))
-      json_data = JSON.parse(response)
-      if json_data["items"]
-        json_data["items"].each do |item|
-          if item["link"] && item["title"]
-            link = item["link"]
-            title = item["title"]
-            next if Goseart.exists?(url_link: link)
-            article_scores = scorer(link,words_to_search, keyword.key_word)
-            article_obj ={}
-            article_obj[:key_word_id]=keyword.id
-            article_obj[:title]=title
-            article_obj[:url_link]=link
-            article_obj[:score] = article_scores[0]
-            article_obj[:score_second] = article_scores[1]
-            article_new =  Goseart.new(article_obj) 
-            next unless article_new.valid?
-            next unless article_new.save
-            
+    bing_articles_links = BingArticle.pluck(:link).to_set
+  
+    key_words.find_each do |keyword|
+      bing_data = search_bing(keyword.key_word)
+  
+      bing_data.each do |bing_data_array|
+        if bing_data_array && bing_data_array.size >= 3
+          title, link, date = bing_data_array
+  
+  
+          next if bing_articles_links.include?(link)
+  
+          article_scores = scorer(link, words_to_search, keyword.key_word)
+          score, score_second = article_scores
+          keyword_id = keyword.id
+          score_sum = score + score_second
+  
+          article_bing = BingArticle.new(title: title, published: date, key_word_id: keyword_id, score: score, score_second: score_second, link: link ) 
+  
+          if article_bing.valid? && score_sum > 0
+            if article_bing.save
+              bing_articles_links.add(link) # Add the link to the set
+            else
+              puts "Error saving article: #{article_bing.errors.full_messages}"
+            end
+          else
+            puts "Invalid article or score sum is zero or less"
           end
+        else
+          puts "Error with search_bing response"
         end
       end
     end
   end
+  
+  
+
+
+
+
+  def test_webhook
+    puts "it works"
+    puts params[:static]
+    @params =params[:static]
+
+  end
+  
+  def gosearts
+    key_words = KeyWord.where(factiva: false)
+    words_to_search = KeyWord.pluck(:key_word).freeze
+    goseart_links = Goseart.pluck(:url_link).to_set
+  
+    key_words.find_each do |keyword|
+      begin
+        encoded_query = URI.encode_www_form_component(keyword.key_word)
+        url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBYXKqIved2ZtTNMNohTjNS26FolJxQvcI&cx=47940e58570224fb6&q=#{encoded_query}&tbm=nws&sort=date"
+        response = Net::HTTP.get(URI(url))
+        json_data = JSON.parse(response)
+        if json_data["items"]
+          json_data["items"].each do |item|
+            if item["link"] && item["title"]
+              link = item["link"]
+              title = item["title"]
+              next if goseart_links.include?(link)
+              article_scores = scorer(link,words_to_search, keyword.key_word)
+              article_obj ={}
+              article_obj[:key_word_id]=keyword.id
+              article_obj[:title]=title
+              article_obj[:url_link]=link
+              article_obj[:score] = article_scores[0]
+              article_obj[:score_second] = article_scores[1]
+              score_sum = article_obj[:score] + article_obj[:score_second]
+              article_new = Goseart.new(article_obj)
+              if article_new.valid? && score_sum > 0
+                if article_new.save
+                  goseart_links.add(link) # Add the link to the set
+                else
+                  puts "Error saving article: #{article_new.errors.full_messages}"
+                end
+              else
+                puts "Invalid article or score sum is zero or less"
+              end
+            end
+          end
+        end
+      rescue StandardError => e
+        puts "Error occurred while processing keyword: #{keyword.key_word}. Error message: #{e.message}"
+      end
+    end
+  end
+  
+  
 
   def scraper
     @article = Article.find(806)
@@ -202,6 +262,33 @@ class StaticController < ApplicationController
     return score, score_second        
   end
 
+
+  def search_bing(query)
+    uri = URI('https://api.bing.microsoft.com/v7.0/news/search')
+    uri.query = URI.encode_www_form({ q: query })
+  
+    request = Net::HTTP::Get.new(uri)
+    request['Ocp-Apim-Subscription-Key'] = '26e2390ca1a34767a703fdec8700518f'
+  
+    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
+      http.request(request)
+    end
+  
+    case response
+    when Net::HTTPSuccess then
+      json_response = JSON.parse(response.body)
+      if json_response.key?("value") && !json_response["value"].empty?
+        json_response["value"].map do |item|
+          [item["name"], item["url"], item["datePublished"]]
+        end
+      else
+        []
+      end
+    else
+      raise "Request failed with code #{response.code}"
+    end
+  end
+  
 
   def count_words(url)
    # Fetch the webpage content using Nokogiri and open-uri
