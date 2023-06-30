@@ -1,20 +1,18 @@
 class KeyWordsController < ApplicationController
   before_action :set_key_word, only: %i[ show edit update destroy ]
   require 'csv'
-
+  skip_before_action :verify_authenticity_token
   # GET /key_words or /key_words.json
   def index
-    @key_words = if params[:search]
-      KeyWord.where("key_word ILIKE ?", "%#{params[:search]}%")
-    else
-     KeyWord.all
-    end
+    @key_words = KeyWord.eager_load(:articles, :gosearts, :bing_articles).all
+    key_words_json = @key_words.as_json(include: [:gosearts, :articles, :bing_articles])
+    render json: key_words_json
   end
 
   # GET /key_words/1 or /key_words/1.json
   def show
-  
- 
+    key_word_json = @key_word.as_json(include: [:gosearts, :articles, :bing_articles])
+    render json: key_word_json
   end
 
   # GET /key_words/new

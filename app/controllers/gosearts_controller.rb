@@ -1,5 +1,6 @@
 class GoseartsController < ApplicationController
   before_action :set_goseart, only: %i[ show edit update destroy ]
+  skip_before_action :verify_authenticity_token
   include Pagy::Backend
   require 'text_analyzer'
   # GET /gosearts or /gosearts.json
@@ -90,7 +91,6 @@ class GoseartsController < ApplicationController
   def update
     respond_to do |format|
       if @goseart.update(goseart_params)
-        format.html { redirect_to goseart_url(@goseart), notice: "Goseart was successfully updated." }
         format.json { render :show, status: :ok, location: @goseart }
       else
         format.html { render :edit, status: :unprocessable_entity }

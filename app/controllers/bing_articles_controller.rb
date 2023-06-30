@@ -1,11 +1,12 @@
 class BingArticlesController < ApplicationController
   before_action :set_bing_article, only: %i[ show edit update destroy ]
-
+  skip_before_action :verify_authenticity_token
+  require 'open-uri'
   require 'text_analyzer'
   # GET /bing_articles or /bing_articles.json
   def index
     if params[:status]== "pending" || params[:status]== nil
-      @articles_all = BingArticle.includes(:key_word).where(category_label: nil)
+      @articles_all = BingArticle.includes(:key_word).where(category_label: "pending")
       json_response = @articles_all.to_json
       render json: json_response
     elsif params[:status]== "published" 
@@ -90,7 +91,6 @@ class BingArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @bing_article.update(bing_article_params)
-        format.html { redirect_to bing_article_url(@bing_article), notice: "Bing article was successfully updated." }
         format.json { render :show, status: :ok, location: @bing_article }
       else
         format.html { render :edit, status: :unprocessable_entity }

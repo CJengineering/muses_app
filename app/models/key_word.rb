@@ -2,6 +2,7 @@ class KeyWord < ApplicationRecord
     require 'date'
     has_many :articles, dependent: :destroy
     has_many :gosearts, dependent: :destroy
+    has_many :bing_articles, dependent: :destroy
     has_many :factiva_articles, dependent: :destroy
     #after_initialize :initialize_keyword
 

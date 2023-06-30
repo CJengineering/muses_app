@@ -1,8 +1,10 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
+  skip_before_action :verify_authenticity_token
   include ActionView::Helpers::SanitizeHelper
-  include Pagy::Backend
 
+  include Pagy::Backend
+  require 'open-uri'
   require 'text_analyzer'
   # GET /articles or /articles.json
   def index

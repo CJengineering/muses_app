@@ -13,10 +13,10 @@ class TextAnalyzer
   
     def analyze
       uri = URI.parse("https://api.openai.com/v1/completions")
-    
+      open_ai_key = Rails.application.credentials.open_ai_key
       header = {
         'Content-Type': 'application/json',
-        'Authorization': " Bearer  #{ENV['OPEN_AI_KEY']}"
+        'Authorization': " Bearer  #{open_ai_key}"
       }
     
       http = Net::HTTP.new(uri.host, uri.port)
