@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'static/scraper'
   get 'static/gosearts'
   get 'static/bing_news'
+  get 'static/dashboard'
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

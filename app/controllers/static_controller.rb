@@ -12,24 +12,50 @@ class StaticController < ApplicationController
   def resource_class; end
 
   def home
-    devise_api_token = current_devise_api_token
-    if devise_api_token
-      render json: { message: "you are logged in as #{devise_api_token.resource_owner.email}" }, status: :ok
-    else
-      render json: { message: 'you are not logged in' }, status: :unauthorized
-    end
+    render json: { message: 'you are not logged in' }
+    #   devise_api_token = current_devise_api_token
+    #   if devise_api_token
+    #     render json: { message: "you are logged in as #{devise_api_token.resource_owner.email}" }, status: :ok
+    #   else
+    #     render json: { message: 'you are not logged in' }, status: :unauthorized
+    #   end
 
-    if Article.last
-      @article_published = Article.last.published.slice(0..10)
-      @article_last_title = Article.last.title.gsub('&lt;/b&gt;', '').gsub('&lt;b&gt;', '').gsub('&amp;#39;', '')
-    end
-    if KeyWord.last
-      @key_word_last_date = KeyWord.last.created_at.strftime('%B %d, %Y')
-      @key_word_last = KeyWord.last.key_word
-    end
-    @articles_count = Article.all.count
-    @key_words_count = KeyWord.all.count
-    @articles = Article.last(5)
+    #   if Article.last
+    #     @article_published = Article.last.published.slice(0..10)
+    #     @article_last_title = Article.last.title.gsub('&lt;/b&gt;', '').gsub('&lt;b&gt;', '').gsub('&amp;#39;', '')
+    #   end
+    #   if KeyWord.last
+    #     @key_word_last_date = KeyWord.last.created_at.strftime('%B %d, %Y')
+    #     @key_word_last = KeyWord.last.key_word
+    #   end
+    #   @articles_count = Article.all.count
+    #   @key_words_count = KeyWord.all.count
+    #   @articles = Article.last(5)
+  end
+
+  def dashboard
+    articles_count_today = Article.where('created_at >= ?', Date.today.beginning_of_day).count
+    bing_articles_count_today = BingArticle.where('created_at >= ?', Date.today.beginning_of_day).count
+    gosearts_count_today = Goseart.where('created_at >= ?', Date.today.beginning_of_day).count
+
+    # Article
+    article_with_highest_score_today = Article.order(score: :desc).limit(5)
+    article_with_highest_score_second_today = Article.where('created_at >= ?',
+                                                            Date.today.beginning_of_day).order(score_second: :desc).first
+
+    # BingArticle
+    bing_article_with_highest_score_today = BingArticle.where('created_at >= ?',
+                                                              Date.today.beginning_of_day).order(score: :desc).first
+    bing_article_with_highest_score_second_today = BingArticle.where('created_at >= ?',
+                                                                     Date.today.beginning_of_day).order(score_second: :desc).first
+
+    # Goseart
+    goseart_with_highest_score_today = Goseart.where('created_at >= ?',
+                                                     Date.today.beginning_of_day).order(score: :desc).first
+    goseart_with_highest_score_second_today = Goseart.where('created_at >= ?',
+                                                            Date.today.beginning_of_day).order(score_second: :desc).first
+
+    render json: { google_alerts_count: article_with_highest_score_today }
   end
 
   def test_webflow
@@ -111,7 +137,8 @@ class StaticController < ApplicationController
 
           if article_bing.valid? && score_sum > 0
             if article_bing.save
-              bing_articles_links.add(link) # Add the link to the set
+              bing_articles_links.add(link)
+              puts 'article saved '
             else
               puts "Error saving article: #{article_bing.errors.full_messages}"
             end
@@ -223,10 +250,10 @@ class StaticController < ApplicationController
         response = URI.open(url)
         html = response.read
         doc = Nokogiri::HTML(html)
-        score = doc.text.scan(/#{keyword}/i).size
+        score = doc.text.scan(/\b#{Regexp.escape(keyword)}\b/i).size
         array_score_second = []
         words_to_search.each do |word|
-          occurrences = doc.text.scrub('').scan(/#{word}/i).size
+          occurrences = doc.text.scrub('').scan(/\b#{Regexp.escape(word)}\b/i).size
           array_score_second << occurrences
         end
         score_second = array_score_second.sum

@@ -6,15 +6,15 @@ class BingArticlesController < ApplicationController
   # GET /bing_articles or /bing_articles.json
   def index
     if params[:status]== "pending" || params[:status]== nil
-      @articles_all = BingArticle.includes(:key_word).where(category_label: "pending")
+      @articles_all = BingArticle.includes(:key_word).where(category_label: nil).order("created_at DESC")
       json_response = @articles_all.to_json
       render json: json_response
     elsif params[:status]== "published" 
-      @articles_all = BingArticle.includes(:key_word).where(category_label: "published")
+      @articles_all = BingArticle.includes(:key_word).where(category_label: "published").order("created_at DESC")
       json_response =@articles_all.to_json
       render json: json_response
     elsif params[:status]== "archived" 
-      @articles_all = BingArticle.includes(:key_word).where(category_label: "archived")
+      @articles_all = BingArticle.includes(:key_word).where(category_label: "archived").order("created_at DESC")
       json_response =@articles_all.to_json
       render json: json_response
     else
@@ -24,42 +24,12 @@ class BingArticlesController < ApplicationController
 
   # GET /bing_articles/1 or /bing_articles/1.json
   def show
-    start = Time.now
     keywords = count_words(@bing_article.link)
-    keyword_duration = Time.now - start
-    
-    start = Time.now
     @related_keywords = keywords[0]
-    related_keywords_duration = Time.now - start
-  
-    start = Time.now
-    @array = keywords[1]
-    array_duration = Time.now - start
-  
-    start = Time.now
-    text = fetch_raw_text(@bing_article.link)
-    fetch_duration = Time.now - start
-  
-    start = Time.now
-    analyzer = TextAnalyzer.new(text)
-    analyzer_duration = Time.now - start
-  
-    start = Time.now
-    @output_text = analyzer.analyze
-    analyze_duration = Time.now - start
-  
+    @array = keywords[1]    
     render json: { 
-      text: @output_text, 
       related_keywords: @related_keywords, 
       array: @array, 
-      durations: {
-        keyword_duration: keyword_duration,
-        related_keywords_duration: related_keywords_duration,
-        array_duration: array_duration,
-        fetch_duration: fetch_duration,
-        analyzer_duration: analyzer_duration,
-        analyze_duration: analyze_duration
-      }
     }
   end
 
