@@ -42,10 +42,12 @@ class ArticlesController < ApplicationController
   def show
     keywords = count_words(@article.link)
     @related_keywords = keywords[0]
-    @array = keywords[1]    
-    render json: { 
-      related_keywords: @related_keywords, 
-      array: @array, 
+    @array = keywords[1]
+    @summary_text = @article.summary ? @article.summary.summary_text : 'Not summerised'
+    render json: {
+      related_keywords: @related_keywords,
+      array: @array,
+      summary: @summary_text
     }
   end
   
@@ -105,17 +107,7 @@ class ArticlesController < ApplicationController
     end
 
   
-    def fetch_raw_text(url)
-      begin 
-        html = URI.open(url)
-        doc = Nokogiri::HTML(html)
-        text_elements = doc.css('h1, p')
-        return text_elements.map(&:text).join(" ") # Return the concatenated text content of the selected elements
-      rescue OpenURI::HTTPError, URI::InvalidURIError, Nokogiri::SyntaxError, SocketError, StandardError => error
-        return "An error occurred: #{error}"
-      end
-    end
-    
+
 
     # Only allow a list of trusted parameters through.
     def article_params

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_23_103944) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_18_132035) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_103944) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "articleinterns", force: :cascade do |t|
+    t.string "title"
+    t.string "category_label"
+    t.integer "score"
+    t.integer "score_second"
+    t.string "published"
+    t.text "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "keyword"
+    t.bigint "key_word_id"
+    t.index ["key_word_id"], name: "index_articleinterns_on_key_word_id"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -118,6 +132,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_103944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "factiva"
+    t.boolean "combined", default: false
   end
 
   create_table "media", force: :cascade do |t|
@@ -128,6 +143,36 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_103944) do
     t.string "programme"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "key_word_id", null: false
+    t.string "title"
+    t.string "published"
+    t.text "link"
+    t.string "category_label"
+    t.integer "score"
+    t.integer "score_second"
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key_word_id"], name: "index_posts_on_key_word_id"
+  end
+
+  create_table "summaries", force: :cascade do |t|
+    t.bigint "article_id"
+    t.bigint "goseart_id"
+    t.bigint "bing_article_id"
+    t.text "summary_text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "articleintern_id"
+    t.bigint "post_id"
+    t.index ["article_id"], name: "index_summaries_on_article_id"
+    t.index ["articleintern_id"], name: "index_summaries_on_articleintern_id"
+    t.index ["bing_article_id"], name: "index_summaries_on_bing_article_id"
+    t.index ["goseart_id"], name: "index_summaries_on_goseart_id"
+    t.index ["post_id"], name: "index_summaries_on_post_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -144,8 +189,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_103944) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "articleinterns", "key_words"
   add_foreign_key "articles", "key_words"
   add_foreign_key "bing_articles", "key_words"
   add_foreign_key "factiva_articles", "key_words"
   add_foreign_key "gosearts", "key_words"
+  add_foreign_key "posts", "key_words"
+  add_foreign_key "summaries", "articleinterns"
+  add_foreign_key "summaries", "articles"
+  add_foreign_key "summaries", "bing_articles"
+  add_foreign_key "summaries", "gosearts"
+  add_foreign_key "summaries", "posts"
 end

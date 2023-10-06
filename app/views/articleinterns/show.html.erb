@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @articleintern %>
+
+<div>
+  <%= link_to "Edit this articleintern", edit_articleintern_path(@articleintern) %> |
+  <%= link_to "Back to articleinterns", articleinterns_path %>
+
+  <%= button_to "Destroy this articleintern", @articleintern, method: :delete %>
+</div>

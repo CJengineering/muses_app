@@ -23,7 +23,7 @@ class TextAnalyzer
       http.use_ssl = true
       request = Net::HTTP::Post.new(uri.request_uri, header)
     
-      prompt = "Please provide a comprehensive analysis and summary of the following text: #{@text}"
+      prompt = "Make a summary of 1500 chracters in British from this article: #{@text}"
     
       request.body = { prompt: prompt, model: @model, max_tokens: 400 }.to_json
     

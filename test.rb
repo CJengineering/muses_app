@@ -1,7 +1,7 @@
-# require 'net/http'
+#  require 'net/http'
 # require 'open-uri'
 # require 'simple-rss'
-# require 'json'
+#  require 'json'
 # require 'nokogiri'
 
 # words_to_search = ["J-PAL","take"]
@@ -142,4 +142,6 @@
 #     raise "Request failed with code #{response.code}"
 #   end
 # end
- 
+
+
+  

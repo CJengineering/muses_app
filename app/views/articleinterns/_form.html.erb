@@ -1,0 +1,47 @@
+<%= form_with(model: articleintern) do |form| %>
+  <% if articleintern.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(articleintern.errors.count, "error") %> prohibited this articleintern from being saved:</h2>
+
+      <ul>
+        <% articleintern.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :category_label, style: "display: block" %>
+    <%= form.text_field :category_label %>
+  </div>
+
+  <div>
+    <%= form.label :score, style: "display: block" %>
+    <%= form.number_field :score %>
+  </div>
+
+  <div>
+    <%= form.label :score_second, style: "display: block" %>
+    <%= form.number_field :score_second %>
+  </div>
+
+  <div>
+    <%= form.label :published, style: "display: block" %>
+    <%= form.text_field :published %>
+  </div>
+
+  <div>
+    <%= form.label :link, style: "display: block" %>
+    <%= form.text_area :link %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

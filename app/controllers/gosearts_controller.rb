@@ -2,7 +2,9 @@ class GoseartsController < ApplicationController
   before_action :set_goseart, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token
   include Pagy::Backend
+  require 'open-uri'
   require 'text_analyzer'
+
   # GET /gosearts or /gosearts.json
   def index
     if params[:status] == 'pending' || params[:status].nil?
@@ -27,9 +29,11 @@ class GoseartsController < ApplicationController
     keywords = count_words(@goseart.url_link)
     @related_keywords = keywords[0]
     @array = keywords[1]
+    @summary_text = @goseart.summary ? @goseart.summary.summary_text : 'Not summerised'
     render json: {
       related_keywords: @related_keywords,
-      array: @array
+      array: @array,
+      summary: @summary_text
     }
   end
 

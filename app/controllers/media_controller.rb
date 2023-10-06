@@ -1,9 +1,27 @@
 class MediaController < ApplicationController
   before_action :set_medium, only: %i[ show edit update destroy ]
-
+  skip_before_action :verify_authenticity_token
   # GET /media or /media.json
   def index
     @media = Medium.all
+
+    respond_to do |format|
+      format.html
+      format.json do
+        media_with_image_links = @media.map do |medium|
+          {
+            id: medium.id,
+            title: medium.title,
+            image_links: medium.images.map { |image| image.url } # Adjust this to your image URL logic
+          }
+        end
+
+        render json: media_with_image_links
+      end
+    end
+
+
+    
   end
 
   # GET /media/1 or /media/1.json

@@ -26,10 +26,12 @@ class BingArticlesController < ApplicationController
   def show
     keywords = count_words(@bing_article.link)
     @related_keywords = keywords[0]
-    @array = keywords[1]    
-    render json: { 
-      related_keywords: @related_keywords, 
-      array: @array, 
+    @array = keywords[1]
+    @summary_text = @bing_article.summary ? @bing_article.summary.summary_text : 'Not summerised'
+    render json: {
+      related_keywords: @related_keywords,
+      array: @array,
+      summary: @summary_text
     }
   end
 

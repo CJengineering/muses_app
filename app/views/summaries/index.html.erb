@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Summaries</h1>
+
+<div id="summaries">
+  <% @summaries.each do |summary| %>
+    <%= render summary %>
+    <p>
+      <%= link_to "Show this summary", summary %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New summary", new_summary_path %>
